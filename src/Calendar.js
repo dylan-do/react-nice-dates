@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { bool, func, instanceOf, object, objectOf, string } from 'prop-types'
 import { startOfMonth } from 'date-fns'
 import { isSelectable, mergeModifiers } from './utils'
@@ -6,6 +6,7 @@ import useControllableState from './useControllableState'
 import CalendarNavigation from './CalendarNavigation'
 import CalendarWeekHeader from './CalendarWeekHeader'
 import CalendarGrid from './CalendarGrid'
+import CalendarYearSelection from './CalendarYearSelection'
 
 export default function Calendar({
   locale,
@@ -21,11 +22,18 @@ export default function Calendar({
   touchDragEnabled
 }) {
   const [month, setMonth] = useControllableState(receivedMonth, onMonthChange, startOfMonth(new Date()))
-
+  const [isSelectYear, setIsSelectYear] = useState(false)
   const modifiers = mergeModifiers(
     { disabled: date => !isSelectable(date, { minimumDate, maximumDate }) },
     receivedModifiers
   )
+
+  function handleChangeYear(newYear) {
+    const newMonth = new Date(month)
+    newMonth.setFullYear(newYear)
+    setMonth(newMonth)
+    setIsSelectYear(false)
+  }
 
   return (
     <div>
@@ -35,11 +43,12 @@ export default function Calendar({
         maximumDate={maximumDate}
         month={month}
         onMonthChange={setMonth}
+        onYearClick={() => setIsSelectYear(true)}
       />
 
-      <CalendarWeekHeader locale={locale} weekdayFormat={weekdayFormat}/>
-
+      <CalendarWeekHeader show={!isSelectYear} locale={locale} weekdayFormat={weekdayFormat} />
       <CalendarGrid
+        show={!isSelectYear}
         locale={locale}
         modifiers={modifiers}
         modifiersClassNames={modifiersClassNames}
@@ -48,6 +57,13 @@ export default function Calendar({
         onDayHover={onDayHover}
         onDayClick={onDayClick}
         touchDragEnabled={touchDragEnabled}
+      />
+      <CalendarYearSelection
+        minimumDate={minimumDate}
+        maximumDate={maximumDate}
+        show={isSelectYear}
+        year={month}
+        onYearChange={handleChangeYear}
       />
     </div>
   )
@@ -60,7 +76,9 @@ Calendar.propTypes = {
   modifiers: objectOf(func),
   modifiersClassNames: objectOf(string),
   month: instanceOf(Date),
+  year: instanceOf(Date),
   onMonthChange: func,
+  onYearChange: func,
   onDayHover: func,
   onDayClick: func,
   weekdayFormat: string,

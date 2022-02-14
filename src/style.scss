@@ -9,6 +9,10 @@ $nice-dates-font-size-big: 16px !default;
 
 $nice-dates-cell-width: calc(100% / 7);
 
+.hidden {
+  display: none !important;
+}
+
 .nice-dates {
   &-navigation {
     align-items: center;
@@ -22,6 +26,11 @@ $nice-dates-cell-width: calc(100% / 7);
     &_current {
       flex-grow: 1;
       font-size: $nice-dates-font-size-big;
+    }
+
+    &_current_year {
+      cursor: pointer;
+      margin-left: 5px;
     }
 
     &_previous, &_next {
@@ -288,6 +297,38 @@ $nice-dates-cell-width: calc(100% / 7);
       opacity: 0;
       pointer-events: none;
       transform: perspective(1000px) rotateX(-15deg);
+    }
+  }
+
+  &-year {
+    &_container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      padding: 10px;
+      height: 300px;
+      overflow: auto;
+    }
+
+    &_item {
+      padding: 20px;
+      cursor: pointer;
+      border-radius: 5px;
+      transition: background-color ease-in-out 150ms;
+
+      &.-current-year { 
+        background-color: #f5f5f5;
+      }
+
+      &.-disabled {
+        cursor: default;
+        pointer-events: none;
+        color: $nice-dates-color-gray-light;
+      }
+
+      &:hover {
+        background-color: #ddd;
+      }
     }
   }
 }

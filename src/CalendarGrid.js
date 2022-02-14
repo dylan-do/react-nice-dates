@@ -17,6 +17,7 @@ const computeModifiers = (modifiers, date) => {
 }
 
 export default function CalendarGrid({
+  show,
   locale,
   month,
   modifiers,
@@ -53,7 +54,10 @@ export default function CalendarGrid({
   })
 
   return (
-    <div className='nice-dates-grid' style={{ height: cellHeight * 6 }}>
+    <div className={classNames({
+      'nice-dates-grid': true,
+      hidden: !show
+    })} style={{ height: cellHeight * 6 }}>
       <div
         className={classNames('nice-dates-grid_container', {
           '-moving': offset,
@@ -82,11 +86,13 @@ CalendarGrid.propTypes = {
   onDayHover: func,
   onDayClick: func,
   transitionDuration: number.isRequired,
-  touchDragEnabled: bool
+  touchDragEnabled: bool,
+  show: bool
 }
 
 CalendarGrid.defaultProps = {
   modifiers: {},
   transitionDuration: 500,
-  touchDragEnabled: true
+  touchDragEnabled: true,
+  show: true
 }

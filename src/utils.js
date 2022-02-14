@@ -25,3 +25,12 @@ export const setTime = (date, dateWithTime) =>
 export const isRangeLengthValid = ({ startDate, endDate }, { minimumLength, maximumLength }) =>
   differenceInDays(startOfDay(endDate), startOfDay(startDate)) >= minimumLength &&
   (!maximumLength || differenceInDays(startOfDay(endDate), startOfDay(startDate)) <= maximumLength)
+
+export const isValidYear = (year, { minimumDate, maximumDate }) => {
+  if (!minimumDate && !maximumDate) return true
+
+  const minYear = minimumDate ? new Date(minimumDate).getFullYear() : 1900
+  const maxYear = maximumDate ? new Date(maximumDate).getFullYear() : 2099
+
+  return year >= minYear && year <= maxYear
+}

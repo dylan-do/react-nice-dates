@@ -1,8 +1,9 @@
 import React from 'react'
-import { object, string } from 'prop-types'
+import { bool, object, string } from 'prop-types'
 import { eachDayOfInterval, endOfWeek, startOfWeek, format } from 'date-fns'
+import classNames from 'classnames'
 
-export default function CalendarWeekHeader({ locale, weekdayFormat }) {
+export default function CalendarWeekHeader({ locale, weekdayFormat, show }) {
   const today = new Date()
 
   const weekDays = eachDayOfInterval({
@@ -11,7 +12,10 @@ export default function CalendarWeekHeader({ locale, weekdayFormat }) {
   }).map(date => format(date, weekdayFormat, { locale }))
 
   return (
-    <div className='nice-dates-week-header'>
+    <div className={classNames({
+      'nice-dates-week-header': true,
+      hidden: !show
+    })}>
       {weekDays.map(day => (
         <span key={day} className='nice-dates-week-header_day'>
           {day}
@@ -23,9 +27,11 @@ export default function CalendarWeekHeader({ locale, weekdayFormat }) {
 
 CalendarWeekHeader.propTypes = {
   locale: object.isRequired,
-  weekdayFormat: string
+  weekdayFormat: string,
+  show: bool
 }
 
 CalendarWeekHeader.defaultProps = {
-  weekdayFormat: 'eee'
+  weekdayFormat: 'eee',
+  show: true
 }

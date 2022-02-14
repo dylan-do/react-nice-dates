@@ -1,9 +1,9 @@
 import React from 'react'
 import { func, instanceOf, object } from 'prop-types'
 import classNames from 'classnames'
-import { addMonths, getYear, startOfMonth, subMonths, format, isSameMonth } from 'date-fns'
+import { addMonths, startOfMonth, subMonths, format, isSameMonth } from 'date-fns'
 
-export default function CalendarNavigation({ locale, month, minimumDate, maximumDate, onMonthChange }) {
+export default function CalendarNavigation({ locale, month, minimumDate, maximumDate, onMonthChange, onYearClick }) {
   const handlePrevious = event => {
     onMonthChange(startOfMonth(subMonths(month, 1)))
     event.preventDefault()
@@ -12,6 +12,12 @@ export default function CalendarNavigation({ locale, month, minimumDate, maximum
   const handleNext = event => {
     onMonthChange(startOfMonth(addMonths(month, 1)))
     event.preventDefault()
+  }
+
+  const handleYearClick = event => {
+    onYearClick()
+    event.preventDefault()
+    event.stopPropagation()
   }
 
   return (
@@ -24,9 +30,14 @@ export default function CalendarNavigation({ locale, month, minimumDate, maximum
         onTouchEnd={handlePrevious}
       />
 
-      <span className='nice-dates-navigation_current'>
-        {format(month, getYear(month) === getYear(new Date()) ? 'LLLL' : 'LLLL yyyy', { locale })}
-      </span>
+      <div className='nice-dates-navigation_current'>
+        <span>
+          {format(month, 'LLLL', { locale })}
+        </span>
+        <span className='nice-dates-navigation_current_year' onClick={handleYearClick} onTouchEnd={handleYearClick}>
+          {format(month, 'yyyy', { locale })}
+        </span>
+      </div>
 
       <a
         className={classNames('nice-dates-navigation_next', {
@@ -44,5 +55,6 @@ CalendarNavigation.propTypes = {
   month: instanceOf(Date).isRequired,
   minimumDate: instanceOf(Date),
   maximumDate: instanceOf(Date),
-  onMonthChange: func.isRequired
+  onMonthChange: func.isRequired,
+  onYearClick: func.isRequired
 }
