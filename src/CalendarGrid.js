@@ -56,7 +56,7 @@ export default function CalendarGrid({
   return (
     <div className={classNames({
       'nice-dates-grid': true,
-      hidden: !show
+      'nice-dates-hidden': !show
     })} style={{ height: cellHeight * 6 }}>
       <div
         className={classNames('nice-dates-grid_container', {

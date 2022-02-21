@@ -14,7 +14,7 @@ export default function CalendarWeekHeader({ locale, weekdayFormat, show }) {
   return (
     <div className={classNames({
       'nice-dates-week-header': true,
-      hidden: !show
+      'nice-dates-hidden': !show
     })}>
       {weekDays.map(day => (
         <span key={day} className='nice-dates-week-header_day'>

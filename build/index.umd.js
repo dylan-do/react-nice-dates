@@ -664,7 +664,7 @@
     return /*#__PURE__*/React__default.createElement("div", {
       className: classnames({
         'nice-dates-grid': true,
-        hidden: !show
+        'nice-dates-hidden': !show
       }),
       style: {
         height: cellHeight * 6
@@ -722,7 +722,7 @@
     return /*#__PURE__*/React__default.createElement("div", {
       className: classnames({
         'nice-dates-week-header': true,
-        hidden: !show
+        'nice-dates-hidden': !show
       })
     }, weekDays.map(function (day) {
       return /*#__PURE__*/React__default.createElement("span", {
@@ -825,7 +825,7 @@
     return /*#__PURE__*/React__default.createElement("div", {
       className: classnames({
         'nice-dates-grid': true,
-        hidden: !show
+        'nice-dates-hidden': !show
       })
     }, /*#__PURE__*/React__default.createElement("div", {
       className: "nice-dates-year_container",

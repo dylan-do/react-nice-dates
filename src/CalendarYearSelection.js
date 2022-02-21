@@ -30,7 +30,7 @@ export default function CalendarYearSelection({
   return (
     <div className={classNames({
       'nice-dates-grid': true,
-      hidden: !show
+      'nice-dates-hidden': !show
     })}>
       <div className='nice-dates-year_container' ref={parentRef}>
         {years.map(y => {
