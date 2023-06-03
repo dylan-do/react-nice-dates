@@ -1,10 +1,31 @@
-import React, { useState } from 'react'
-import { bool, func, instanceOf, object, objectOf, string } from 'prop-types'
-import useDateInput from './useDateInput'
-import useDetectTouch from './useDetectTouch'
-import useOutsideClickHandler from './useOutsideClickHandler'
-import DatePickerCalendar from './DatePickerCalendar'
-import Popover from './Popover'
+import { bool, func, instanceOf, object, objectOf, string } from "prop-types";
+import React, { useState } from "react";
+import DatePickerCalendar from "./DatePickerCalendar";
+import Popover from "./Popover";
+import { MAX_YEAR, MIN_YEAR } from "./constants";
+import useDateInput from "./useDateInput";
+import useDetectTouch from "./useDetectTouch";
+import useOutsideClickHandler from "./useOutsideClickHandler";
+
+function getInitialState({ date, maximumDate, minimumDate }) {
+  const dateValue = date ? new Date(date).getTime() : new Date().getTime();
+
+  const maxDateValue = maximumDate
+    ? new Date(maximumDate).getTime()
+    : new Date(`${MAX_YEAR}-01-01`).getTime();
+  const minDateValue = minimumDate
+    ? new Date(minimumDate).getTime()
+    : new Date(`${MIN_YEAR}-01-01`).getTime();
+
+  if (minDateValue < dateValue && dateValue < maxDateValue) {
+    return new Date(dateValue);
+  } else if (dateValue > maxDateValue) {
+    return maximumDate;
+  } else if (dateValue < minDateValue) {
+    return minimumDate;
+  }
+  return date || new Date();
+}
 
 export default function DatePicker({
   children,
@@ -17,17 +38,21 @@ export default function DatePicker({
   modifiers,
   modifiersClassNames,
   weekdayFormat,
-  touchDragEnabled
+  touchDragEnabled,
 }) {
-  const [month, setMonth] = useState(date || new Date())
-  const [focused, setFocused] = useState(false)
-  const isTouch = useDetectTouch()
+  const [month, setMonth] = useState(
+    getInitialState({ date, maximumDate, minimumDate })
+  );
+
+  console.log(`month :>>`, month);
+  const [focused, setFocused] = useState(false);
+  const isTouch = useDetectTouch();
 
   const [inputRef, popoverRef] = useOutsideClickHandler(() => {
     if (focused) {
-      setFocused(false)
+      setFocused(false);
     }
-  })
+  });
 
   const inputProps = useDateInput({
     date,
@@ -35,34 +60,34 @@ export default function DatePicker({
     locale,
     minimumDate,
     maximumDate,
-    onDateChange: date => {
-      onDateChange(date)
-      date && setMonth(date)
-    }
-  })
+    onDateChange: (date) => {
+      onDateChange(date);
+      date && setMonth(date);
+    },
+  });
 
-  const handleDateChange = date => {
-    onDateChange(date)
-    setFocused(false)
-  }
+  const handleDateChange = (date) => {
+    onDateChange(date);
+    setFocused(false);
+  };
 
   return (
-    <div className='nice-dates'>
+    <div className="nice-dates">
       {children({
         inputProps: {
           ...inputProps,
           ref: inputRef,
           onFocus: () => {
-            inputProps.onFocus()
-            setFocused(true)
+            inputProps.onFocus();
+            setFocused(true);
 
             if (isTouch) {
-              inputRef.current.blur()
+              inputRef.current.blur();
             }
           },
-          readOnly: isTouch
+          readOnly: isTouch,
         },
-        focused
+        focused,
       })}
 
       <Popover open={focused} ref={popoverRef}>
@@ -81,7 +106,7 @@ export default function DatePicker({
         />
       </Popover>
     </div>
-  )
+  );
 }
 
 DatePicker.propTypes = {
@@ -95,9 +120,9 @@ DatePicker.propTypes = {
   modifiers: objectOf(func),
   modifiersClassNames: objectOf(string),
   weekdayFormat: string,
-  touchDragEnabled: bool
-}
+  touchDragEnabled: bool,
+};
 
 DatePicker.defaultProps = {
-  onDateChange: () => {}
-}
+  onDateChange: () => {},
+};
