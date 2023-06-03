@@ -1,6 +1,6 @@
 {
-  "name": "react-nice-dates",
-  "version": "3.1.0",
+  "name": "@dylan-do/react-nice-dates",
+  "version": "3.1.1",
   "main": "build/index.js",
   "module": "build/index.esm.js",
   "unpkg": "build/index.umd.js",
@@ -9,7 +9,7 @@
   "types": "index.d.ts",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/hernansartorio/react-nice-dates.git"
+    "url": "git+https://github.com/dylan-do/react-nice-dates.git"
   },
   "bugs": {
     "url": "https://github.com/hernansartorio/react-nice-dates/issues"
@@ -64,8 +64,8 @@
     "postcss-cli": "^7.1.0",
     "prism-react-renderer": "^1.0.2",
     "prop-types": "^15",
-    "react": "^16",
-    "react-dom": "^16",
+    "react": "^16 || ^17 || ^18",
+    "react-dom": "^16 || ^17 | ^18",
     "react-test-renderer": "^16.12.0",
     "rollup": "^1.29.0",
     "rollup-plugin-babel": "^4.3.3",

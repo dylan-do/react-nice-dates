@@ -1,6 +1,5 @@
-declare module "react-nice-dates" {
+declare module "@dylan-do/react-nice-dates" {
   import * as React from "react";
-  import * as Locale from "date-fns";
 
   type DateChangeCallBack = (date: Date | null) => void;
 
@@ -14,7 +13,7 @@ declare module "react-nice-dates" {
     onFocus: () => void;
   }
 
-  type DefaultModifiers = 'disabled' | 'selected' | 'today';
+  type DefaultModifiers = "disabled" | "selected" | "today";
   type ModifierMatcher = (date: Date) => boolean;
 
   type Modifiers = { [key in DefaultModifiers | string]: ModifierMatcher };
@@ -48,7 +47,7 @@ declare module "react-nice-dates" {
     format?: string;
   }
 
-  type DateRangeFocus = 'startDate' | 'endDate';
+  type DateRangeFocus = "startDate" | "endDate";
 
   interface DateRangePickerChildrenProps {
     startDateInputProps: InputProps;
@@ -96,7 +95,7 @@ declare module "react-nice-dates" {
   export function DateRangePickerCalendar(
     props: DateRangePickerCalendarProps
   ): JSX.Element;
-  
+
   export function useDateInput({
     date,
     format,
@@ -104,14 +103,17 @@ declare module "react-nice-dates" {
     minimumDate,
     maximumDate,
     onDateChange,
-    validate
+    validate,
   }: {
-    date?: Date,
-    format?: string,
-    locale: Locale,
-    minimumDate?: Date,
-    maximumDate?: Date,
-    onDateChange: (date: Date) => void,
-    validate?: (date: Date) => boolean,
-  }): any
+    date?: Date;
+    format?: string;
+    locale: Locale;
+    minimumDate?: Date;
+    maximumDate?: Date;
+    onDateChange: (date: Date) => void;
+    validate?: (date: Date) => boolean;
+  }): any;
+
+  export const START_DATE: string;
+  export const END_DATE: string;
 }
