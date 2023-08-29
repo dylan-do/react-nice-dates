@@ -85,7 +85,7 @@ CalendarGrid.propTypes = {
   onMonthChange: func.isRequired,
   onDayHover: func,
   onDayClick: func,
-  transitionDuration: number.isRequired,
+  transitionDuration: number,
   touchDragEnabled: bool,
   show: bool
 }

@@ -3,9 +3,8 @@ import { eachDayOfInterval, endOfWeek, format, startOfWeek } from 'date-fns'
 import { bool, object, string } from 'prop-types'
 import React from 'react'
 
-export default function CalendarWeekHeader({ locale, weekdayFormat, show }) {
+export default function CalendarWeekHeader({ locale, weekdayFormat = 'eee', show = true }) {
   const today = new Date()
-
   const weekDays = eachDayOfInterval({
     start: startOfWeek(today, { locale }),
     end: endOfWeek(today, { locale })
