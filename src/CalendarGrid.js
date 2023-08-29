@@ -1,10 +1,10 @@
-import React from 'react'
-import { bool, instanceOf, func, number, object, objectOf, string } from 'prop-types'
-import { eachDayOfInterval, isSameMonth, lightFormat, startOfMonth } from 'date-fns'
 import classNames from 'classnames'
-import useGrid from './useGrid'
-import { ORIGIN_BOTTOM, ORIGIN_TOP } from './constants'
+import { eachDayOfInterval, isSameMonth, lightFormat, startOfMonth } from 'date-fns'
+import { bool, func, instanceOf, number, object, objectOf, string } from 'prop-types'
+import React from 'react'
 import CalendarDay from './CalendarDay'
+import { ORIGIN_BOTTOM, ORIGIN_TOP } from './constants'
+import useGrid from './useGrid'
 
 const computeModifiers = (modifiers, date) => {
   const computedModifiers = {}
@@ -17,16 +17,16 @@ const computeModifiers = (modifiers, date) => {
 }
 
 export default function CalendarGrid({
-  show,
+  show = true,
   locale,
   month,
-  modifiers,
+  modifiers = {},
   modifiersClassNames,
   onMonthChange,
   onDayHover,
   onDayClick,
-  transitionDuration,
-  touchDragEnabled
+  transitionDuration = 500,
+  touchDragEnabled = true
 }) {
   const grid = useGrid({ locale, month: startOfMonth(month), onMonthChange, transitionDuration, touchDragEnabled })
   const { startDate, endDate, cellHeight, containerElementRef, isWide, offset, origin, transition } = grid
@@ -88,11 +88,4 @@ CalendarGrid.propTypes = {
   transitionDuration: number.isRequired,
   touchDragEnabled: bool,
   show: bool
-}
-
-CalendarGrid.defaultProps = {
-  modifiers: {},
-  transitionDuration: 500,
-  touchDragEnabled: true,
-  show: true
 }

@@ -1,25 +1,25 @@
-import React, { useState } from 'react'
 import { bool, func, instanceOf, number, object, objectOf, string } from 'prop-types'
-import { isRangeLengthValid } from './utils'
-import { START_DATE, END_DATE } from './constants'
-import useDateInput from './useDateInput'
-import useOutsideClickHandler from './useOutsideClickHandler'
-import useDetectTouch from './useDetectTouch'
+import React, { useState } from 'react'
 import DateRangePickerCalendar from './DateRangePickerCalendar'
 import Popover from './Popover'
+import { END_DATE, START_DATE } from './constants'
+import useDateInput from './useDateInput'
+import useDetectTouch from './useDetectTouch'
+import useOutsideClickHandler from './useOutsideClickHandler'
+import { isRangeLengthValid } from './utils'
 
 export default function DateRangePicker({
   children,
   locale,
   startDate,
   endDate,
-  onStartDateChange,
-  onEndDateChange,
+  onStartDateChange = () => {},
+  onEndDateChange = () => {},
   format,
   minimumDate,
   maximumDate,
-  minimumLength,
-  maximumLength,
+  minimumLength = 0,
+  maximumLength = null,
   modifiers,
   modifiersClassNames,
   weekdayFormat,
@@ -132,11 +132,4 @@ DateRangePicker.propTypes = {
   modifiersClassNames: objectOf(string),
   weekdayFormat: string,
   touchDragEnabled: bool
-}
-
-DateRangePicker.defaultProps = {
-  onStartDateChange: () => {},
-  onEndDateChange: () => {},
-  minimumLength: 0,
-  maximumLength: null
 }

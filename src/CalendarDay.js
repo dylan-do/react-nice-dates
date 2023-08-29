@@ -1,7 +1,7 @@
-import React from 'react'
-import { bool, instanceOf, func, number, object, objectOf, string } from 'prop-types'
-import { getDate, format, isToday } from 'date-fns'
 import classNames from 'classnames'
+import { format, getDate, isToday } from 'date-fns'
+import { bool, func, instanceOf, number, object, objectOf, string } from 'prop-types'
+import React from 'react'
 
 const defaultModifiersClassNames = {
   today: '-today',
@@ -18,10 +18,10 @@ export default function CalendarDay({
   date,
   height,
   locale,
-  modifiers: receivedModifiers,
+  modifiers: receivedModifiers = {},
   modifiersClassNames: receivedModifiersClassNames,
-  onClick,
-  onHover
+  onClick = () => {},
+  onHover = () => {}
 }) {
   const dayOfMonth = getDate(date)
   const dayClassNames = {}
@@ -70,10 +70,4 @@ CalendarDay.propTypes = {
   modifiersClassNames: objectOf(string),
   onHover: func,
   onClick: func
-}
-
-CalendarDay.defaultProps = {
-  modifiers: {},
-  onHover: () => {},
-  onClick: () => {}
 }

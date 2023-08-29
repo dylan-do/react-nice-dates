@@ -1,7 +1,7 @@
-import React from 'react'
-import { bool, object, string } from 'prop-types'
-import { eachDayOfInterval, endOfWeek, startOfWeek, format } from 'date-fns'
 import classNames from 'classnames'
+import { eachDayOfInterval, endOfWeek, format, startOfWeek } from 'date-fns'
+import { bool, object, string } from 'prop-types'
+import React from 'react'
 
 export default function CalendarWeekHeader({ locale, weekdayFormat, show }) {
   const today = new Date()
@@ -29,9 +29,4 @@ CalendarWeekHeader.propTypes = {
   locale: object.isRequired,
   weekdayFormat: string,
   show: bool
-}
-
-CalendarWeekHeader.defaultProps = {
-  weekdayFormat: 'eee',
-  show: true
 }
