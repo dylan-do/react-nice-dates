@@ -1,6 +1,6 @@
-import React, { useEffect, useRef } from 'react'
-import { instanceOf, func, bool } from 'prop-types'
 import classNames from 'classnames'
+import { bool, func, instanceOf } from 'prop-types'
+import React, { useEffect, useRef } from 'react'
 import { isValidYear } from './utils'
 export default function CalendarYearSelection({
   show,
@@ -39,7 +39,6 @@ export default function CalendarYearSelection({
             key={y}
             ref={isCurrentYear ? currentYearRef : null}
             onClick={handleYearClick.bind(this, y)}
-            onTouchEnd={handleYearClick.bind(this, y)}
             className={classNames('nice-dates-year_item', {
               '-current-year': isCurrentYear,
               '-disabled': !isValidYear(y, { minimumDate, maximumDate })
