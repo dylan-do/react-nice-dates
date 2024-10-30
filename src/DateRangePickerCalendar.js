@@ -23,7 +23,9 @@ export default function DateRangePickerCalendar({
   modifiers: receivedModifiers,
   modifiersClassNames,
   weekdayFormat,
-  touchDragEnabled
+  touchDragEnabled,
+  minYear,
+  maxYear
 }) {
   const [hoveredDate, setHoveredDate] = useState()
   const [month, setMonth] = useControllableState(
@@ -133,6 +135,8 @@ export default function DateRangePickerCalendar({
       modifiersClassNames={modifiersClassNames}
       weekdayFormat={weekdayFormat}
       touchDragEnabled={touchDragEnabled}
+      minYear={minYear}
+      maxYear={maxYear}
     />
   )
 }
@@ -154,5 +158,7 @@ DateRangePickerCalendar.propTypes = {
   modifiers: objectOf(func),
   modifiersClassNames: objectOf(string),
   weekdayFormat: string,
-  touchDragEnabled: bool
+  touchDragEnabled: bool,
+  minYear: number,
+  maxYear: number
 }

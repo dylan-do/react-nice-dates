@@ -1,5 +1,5 @@
 import { startOfMonth } from 'date-fns'
-import { bool, func, instanceOf, object, objectOf, string } from 'prop-types'
+import { bool, func, instanceOf, number, object, objectOf, string } from 'prop-types'
 import React, { useState } from 'react'
 import CalendarGrid from './CalendarGrid'
 import CalendarNavigation from './CalendarNavigation'
@@ -19,7 +19,9 @@ export default function Calendar({
   onDayHover,
   onDayClick,
   weekdayFormat,
-  touchDragEnabled
+  touchDragEnabled,
+  minYear,
+  maxYear
 }) {
   const [month, setMonth] = useControllableState(receivedMonth, onMonthChange, startOfMonth(new Date()))
   const [isSelectYear, setIsSelectYear] = useState(false)
@@ -63,6 +65,8 @@ export default function Calendar({
         maximumDate={maximumDate}
         show={isSelectYear}
         year={month}
+        minYear={minYear}
+        maxYear={maxYear}
         onYearChange={handleChangeYear}
       />
     </div>
@@ -82,5 +86,7 @@ Calendar.propTypes = {
   onDayHover: func,
   onDayClick: func,
   weekdayFormat: string,
-  touchDragEnabled: bool
+  touchDragEnabled: bool,
+  minYear: number,
+  maxYear: number
 }

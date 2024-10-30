@@ -23,7 +23,9 @@ export default function DateRangePicker({
   modifiers,
   modifiersClassNames,
   weekdayFormat,
-  touchDragEnabled
+  touchDragEnabled,
+  minYear,
+  maxYear
 }) {
   const [focus, setFocus] = useState()
   const [month, setMonth] = useState(startDate || endDate || new Date())
@@ -110,6 +112,8 @@ export default function DateRangePicker({
           modifiersClassNames={modifiersClassNames}
           weekdayFormat={weekdayFormat}
           touchDragEnabled={touchDragEnabled}
+          minYear={minYear}
+          maxYear={maxYear}
         />
       </Popover>
     </div>
@@ -131,5 +135,7 @@ DateRangePicker.propTypes = {
   modifiers: objectOf(func),
   modifiersClassNames: objectOf(string),
   weekdayFormat: string,
-  touchDragEnabled: bool
+  touchDragEnabled: bool,
+  minYear: number,
+  maxYear: number
 }

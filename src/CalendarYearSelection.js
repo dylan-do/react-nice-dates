@@ -1,5 +1,5 @@
 import classNames from 'classnames'
-import { bool, func, instanceOf } from 'prop-types'
+import { bool, func, instanceOf, number } from 'prop-types'
 import React, { useEffect, useRef } from 'react'
 import { isValidYear } from './utils'
 export default function CalendarYearSelection({
@@ -7,10 +7,10 @@ export default function CalendarYearSelection({
   onYearChange,
   minimumDate,
   maximumDate,
-  year
+  year,
+  minYear = 1900,
+  maxYear = 2099
 }) {
-  const minYear = 1900
-  const maxYear = 2099
   const currentFullYear = new Date(year).getFullYear()
   const years = Array.from({ length: maxYear - minYear }, (_, i) => minYear + i)
   function handleYearClick(selectedYear, event) {
@@ -53,6 +53,8 @@ export default function CalendarYearSelection({
 
 CalendarYearSelection.propTypes = {
   year: instanceOf(Date).isRequired,
+  minYear: number,
+  maxYear: number,
   onYearChange: func.isRequired,
   minimumDate: instanceOf(Date),
   maximumDate: instanceOf(Date),

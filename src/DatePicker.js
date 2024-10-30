@@ -1,21 +1,20 @@
-import { bool, func, instanceOf, object, objectOf, string } from 'prop-types'
+import { bool, func, instanceOf, number, object, objectOf, string } from 'prop-types'
 import React, { useState } from 'react'
 import DatePickerCalendar from './DatePickerCalendar'
 import Popover from './Popover'
-import { MAX_YEAR, MIN_YEAR } from './constants'
 import useDateInput from './useDateInput'
 import useDetectTouch from './useDetectTouch'
 import useOutsideClickHandler from './useOutsideClickHandler'
 
-function getInitialState({ date, maximumDate, minimumDate }) {
+function getInitialState({ date, maximumDate, minimumDate, minYear, maxYear }) {
   const dateValue = date ? new Date(date).getTime() : new Date().getTime()
 
   const maxDateValue = maximumDate
     ? new Date(maximumDate).getTime()
-    : new Date(`${MAX_YEAR}-01-01`).getTime()
+    : new Date(`${maxYear}-01-01`).getTime()
   const minDateValue = minimumDate
     ? new Date(minimumDate).getTime()
-    : new Date(`${MIN_YEAR}-01-01`).getTime()
+    : new Date(`${minYear}-01-01`).getTime()
 
   if (minDateValue < dateValue && dateValue < maxDateValue) {
     return new Date(dateValue)
@@ -38,10 +37,12 @@ export default function DatePicker({
   modifiers,
   modifiersClassNames,
   weekdayFormat,
-  touchDragEnabled
+  touchDragEnabled,
+  minYear,
+  maxYear
 }) {
   const [month, setMonth] = useState(
-    getInitialState({ date, maximumDate, minimumDate })
+    getInitialState({ date, maximumDate, minimumDate, minYear, maxYear })
   )
 
   const [focused, setFocused] = useState(false)
@@ -102,6 +103,8 @@ export default function DatePicker({
           modifiersClassNames={modifiersClassNames}
           weekdayFormat={weekdayFormat}
           touchDragEnabled={touchDragEnabled}
+          minYear={minYear}
+          maxYear={maxYear}
         />
       </Popover>
     </div>
@@ -119,5 +122,7 @@ DatePicker.propTypes = {
   modifiers: objectOf(func),
   modifiersClassNames: objectOf(string),
   weekdayFormat: string,
-  touchDragEnabled: bool
+  touchDragEnabled: bool,
+  minYear: number,
+  maxYear: number
 }
