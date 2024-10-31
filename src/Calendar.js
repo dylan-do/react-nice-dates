@@ -20,8 +20,8 @@ export default function Calendar({
   onDayClick,
   weekdayFormat,
   touchDragEnabled,
-  minYear,
-  maxYear
+  minYear = 1900,
+  maxYear = 2099
 }) {
   const [month, setMonth] = useControllableState(receivedMonth, onMonthChange, startOfMonth(new Date()))
   const [isSelectYear, setIsSelectYear] = useState(false)
@@ -29,7 +29,6 @@ export default function Calendar({
     { disabled: date => !isSelectable(date, { minimumDate, maximumDate }) },
     receivedModifiers
   )
-
   function handleChangeYear(newYear) {
     const newMonth = new Date(month)
     newMonth.setFullYear(newYear)

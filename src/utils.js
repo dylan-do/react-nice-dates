@@ -1,4 +1,4 @@
-import { differenceInDays, isAfter, isBefore, startOfDay, set } from 'date-fns'
+import { differenceInDays, isAfter, isBefore, set, startOfDay } from 'date-fns'
 
 export const isSelectable = (date, { minimumDate, maximumDate }) =>
   !isBefore(date, startOfDay(minimumDate)) && !isAfter(date, maximumDate)
@@ -26,11 +26,11 @@ export const isRangeLengthValid = ({ startDate, endDate }, { minimumLength, maxi
   differenceInDays(startOfDay(endDate), startOfDay(startDate)) >= minimumLength &&
   (!maximumLength || differenceInDays(startOfDay(endDate), startOfDay(startDate)) <= maximumLength)
 
-export const isValidYear = (year, { minimumDate, maximumDate }) => {
+export const isValidYear = (year, { minimumDate, maximumDate, minYear, maxYear }) => {
   if (!minimumDate && !maximumDate) return true
 
-  const minYear = minimumDate ? new Date(minimumDate).getFullYear() : 1900
-  const maxYear = maximumDate ? new Date(maximumDate).getFullYear() : 2099
+  const minYearValue = minimumDate ? new Date(minimumDate).getFullYear() : minYear || 1900
+  const maxYearValue = maximumDate ? new Date(maximumDate).getFullYear() : maxYear || 2099
 
-  return year >= minYear && year <= maxYear
+  return year >= minYearValue && year <= maxYearValue
 }

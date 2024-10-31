@@ -8,7 +8,6 @@ import useOutsideClickHandler from './useOutsideClickHandler'
 
 function getInitialState({ date, maximumDate, minimumDate, minYear, maxYear }) {
   const dateValue = date ? new Date(date).getTime() : new Date().getTime()
-
   const maxDateValue = maximumDate
     ? new Date(maximumDate).getTime()
     : new Date(`${maxYear}-01-01`).getTime()
@@ -38,8 +37,8 @@ export default function DatePicker({
   modifiersClassNames,
   weekdayFormat,
   touchDragEnabled,
-  minYear,
-  maxYear
+  minYear = 1900,
+  maxYear = 2099
 }) {
   const [month, setMonth] = useState(
     getInitialState({ date, maximumDate, minimumDate, minYear, maxYear })

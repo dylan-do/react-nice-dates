@@ -41,7 +41,7 @@ export default function CalendarYearSelection({
             onClick={handleYearClick.bind(this, y)}
             className={classNames('nice-dates-year_item', {
               '-current-year': isCurrentYear,
-              '-disabled': !isValidYear(y, { minimumDate, maximumDate })
+              '-disabled': !isValidYear(y, { minimumDate, maximumDate, minYear, maxYear })
             })}>
             {y}
           </div>
